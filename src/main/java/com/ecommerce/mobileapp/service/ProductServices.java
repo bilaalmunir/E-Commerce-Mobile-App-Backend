@@ -33,6 +33,15 @@ public class ProductServices {
    }
 
    public ResponseEntity<String> deleteCar(int carId){
+            Product product = proRepo.findById(carId).orElseThrow(()-> new IllegalArgumentException("no such product found!"));
+            List<User> users = userRepo.findAll();
+            for (User user : users) {
+               Wishlist wishlist = user.getWishlist();
+               if(wishlist != null){
+                  wishlist.getProduct().removeIf(p -> p.getID() == carId);
+                  wishlistRepo.save(wishlist);
+               }
+            }
             proRepo.deleteById(carId);
             return ResponseEntity.ok("Car has been deleted!");
    }
