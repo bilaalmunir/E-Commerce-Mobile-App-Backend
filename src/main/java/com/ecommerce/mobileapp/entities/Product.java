@@ -1,8 +1,13 @@
 package com.ecommerce.mobileapp.entities;
+import java.util.List;
+
+import com.ecommerce.mobileapp.entities.Comments;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 //cars details 
 @Entity
@@ -18,9 +23,22 @@ public class Product {
     private Boolean status=false;
     private int publishedBy;
     private int boughtBy;
-
+    @OneToMany
+    private List<Comments> comments;
    
     
+  
+    @Override
+    public String toString() {
+        return "Product [ID=" + ID + ", carName=" + carName + ", model=" + model + ", color=" + color + ", status="
+                + status + ", publishedBy=" + publishedBy + ", boughtBy=" + boughtBy + ", comments=" + comments + "]";
+    }
+    public List<Comments> getComments() {
+        return comments;
+    }
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
     public Product(){}
     public Product(String carName, String model, String color, int publishedBy) {
         this.carName = carName;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.mobileapp.entities.Comments;
 import com.ecommerce.mobileapp.entities.Product;
 import com.ecommerce.mobileapp.entities.User;
 import com.ecommerce.mobileapp.entities.Wishlist;
@@ -90,7 +91,14 @@ public class rest {
    public Wishlist getWishlistForUser(int userId){
         return ps.getWishlistForUser(userId);
     }
-
+    @PostMapping("/postComment")
+    public Comments postComment(int productId, int userId, String com){
+        return ps.postComment(productId, userId, com);
+    }
+    @GetMapping("/getComments")
+    public List<Comments> getComments(int productId){
+        return ps.getComments(productId);
+    }
 
 }
 

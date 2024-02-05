@@ -2,18 +2,21 @@ package com.ecommerce.mobileapp.service;
 
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.mobileapp.entities.Comments;
 import com.ecommerce.mobileapp.entities.Product;
 import com.ecommerce.mobileapp.entities.User;
 import com.ecommerce.mobileapp.entities.Wishlist;
+import com.ecommerce.mobileapp.repository.CommentRepository;
 import com.ecommerce.mobileapp.repository.ProductRepository;
 import com.ecommerce.mobileapp.repository.Userrepository;
 import com.ecommerce.mobileapp.repository.WishlistRepository;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +28,8 @@ public class ProductServices {
    private Userrepository userRepo;
    @Autowired
    private WishlistRepository wishlistRepo;
+   @Autowired
+   private CommentRepository comRepo;
 
    public Product addCar(String carName,String model,String color,int userId) {
       Product Carinfo =  new Product(carName,model,color,userId);
@@ -126,6 +131,35 @@ public class ProductServices {
       User user= userRepo.findById((long)userId).orElseThrow(() -> new IllegalArgumentException("no user found!"));
       Wishlist wishlist = user.getWishlist();
       return wishlist;
+   }
+   public Comments postComment(int productId, int userId, String com){
+      User user = userRepo.findById((long) userId).orElseThrow(()-> new IllegalArgumentException("no user found!"));
+      Product product = proRepo.findById(productId).orElseThrow(()-> new IllegalArgumentException("no product found!"));
+      List<Comments> comm = product.getComments();
+      if(comm == null){
+         comm = new ArrayList<>();
+         product.setComments(comm);
+      }
+      Comments newCom = new Comments();
+      newCom.setComment(com);
+      newCom.setUser(user);
+      comRepo.save(newCom);
+      System.out.println(newCom.toString());
+      comm.add(newCom);
+      product.setComments(comm);
+      proRepo.save(product);
+      System.out.println(product.toString());
+      return newCom;
+      
+   }
+   public List<Comments> getComments(int productId){
+      Product product = proRepo.findById(productId).orElseThrow(()->new IllegalArgumentException("no product found!"));
+      List<Comments> comments = product.getComments();
+      if(comments.isEmpty()){
+         System.out.println("comments are empty for this product");
+      }
+      
+      return comments;
    }
     }
 
