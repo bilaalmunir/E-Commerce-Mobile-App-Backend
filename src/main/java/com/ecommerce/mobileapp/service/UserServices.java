@@ -26,7 +26,7 @@ public class UserServices {
          if (userRepo.findByUsername(userName)!=null) {
             return new User();
          }
-        user.setUserName(userName);
+        user.setUsername(userName);
        user.setFirstName(firstname);
         user.setLastName(lastname);
         user.setEmail(email);
@@ -62,7 +62,10 @@ public class UserServices {
             throw new IllegalArgumentException("mango mango");
         }
 
-        
+        public User getUser(int userId){
+            return userRepo.findById(userId).orElseThrow(() -> new IllegalArgumentException("no user found!"));
+
+        }
 
 
 }

@@ -22,6 +22,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private long balance = 64738264;
     @OneToMany
     private List<Product> ownedCars=new ArrayList<>();
     @OneToMany
@@ -73,12 +74,7 @@ public class User {
         this.userID =  userID;
     }
   
-    public String getUserName() {
-        return username;
-    }
-    public void setUserName(String userName) {
-        this.username = userName;
-    }
+    
     public String getEmail() {
         return email;
     }
@@ -90,6 +86,12 @@ public class User {
     }
     public void setWishlist(Wishlist wishlist) {
         this.wishlist = wishlist;
+    }
+    public long getBalance() {
+        return balance;
+    }
+    public void setBalance(long balance) {
+        this.balance = balance;
     }
     
     

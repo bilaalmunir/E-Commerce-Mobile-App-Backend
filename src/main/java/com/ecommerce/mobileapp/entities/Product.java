@@ -23,15 +23,22 @@ public class Product {
     private Boolean status=false;
     private int publishedBy;
     private int boughtBy;
+    private long price;
     @OneToMany
     private List<Comments> comments;
    
     
   
+    public long getPrice() {
+        return price;
+    }
+    public void setPrice(long price) {
+        this.price = price;
+    }
     @Override
     public String toString() {
         return "Product [ID=" + ID + ", carName=" + carName + ", model=" + model + ", color=" + color + ", status="
-                + status + ", publishedBy=" + publishedBy + ", boughtBy=" + boughtBy + ", comments=" + comments + "]";
+                + status + ", publishedBy=" + publishedBy+", Price=" + price+", boughtBy=" + boughtBy + ", comments=" + comments + "]";
     }
     public List<Comments> getComments() {
         return comments;
@@ -39,11 +46,11 @@ public class Product {
     public void setComments(List<Comments> comments) {
         this.comments = comments;
     }
-    public Product(){}
-    public Product(String carName, String model, String color, int publishedBy) {
+    public Product(String carName, String model, String color, long price,int publishedBy) {
         this.carName = carName;
         this.model = model;
         this.color = color;
+        this.price = price;
         this.publishedBy = publishedBy;
     }
     public int getPublishedBy() {
@@ -51,6 +58,8 @@ public class Product {
     }
     public void setPublishedBy(int publishedBy) {
         this.publishedBy = publishedBy;
+    }
+    public Product() {
     }
     public Boolean getStatus() {
         return status;

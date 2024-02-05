@@ -43,8 +43,8 @@ public class rest {
     }
     
     @PostMapping("/addCar")
-    public ResponseEntity<?> addCar(@RequestParam String carName,@RequestParam String model,@RequestParam String color,@RequestParam int userId){
-        Product addedCar = ps.addCar(carName, model, color, userId);
+    public ResponseEntity<?> addCar(@RequestParam String carName,@RequestParam String model,@RequestParam String color, @RequestParam Long price,@RequestParam int userId){
+        Product addedCar = ps.addCar(carName, model, color, price ,userId);
         return ResponseEntity.ok(addedCar);
     }
 
@@ -98,6 +98,10 @@ public class rest {
     @GetMapping("/getComments")
     public List<Comments> getComments(int productId){
         return ps.getComments(productId);
+    }
+    @GetMapping("/getUser")
+    public User getUser(int userId){
+        return us.getUser(userId);
     }
 
 }

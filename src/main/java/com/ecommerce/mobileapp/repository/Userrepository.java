@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.ecommerce.mobileapp.entities.User;
 
 @Repository
-public interface Userrepository extends JpaRepository<User,Long>{
+public interface Userrepository extends JpaRepository<User,Integer>{
     public User findByUsername(String username);
 }
