@@ -41,7 +41,12 @@ public class ProductServices {
                   wishlist.getProduct().removeIf(p -> p.getID() == carId);
                   wishlistRepo.save(wishlist);
                }
-            }
+               List<Product> products = user.getOwnedCars();
+               if(products != null){
+                  products.removeIf(p -> p.getID()==carId);
+                  proRepo.saveAll(products);
+               }
+               }
             proRepo.deleteById(carId);
             return ResponseEntity.ok("Car has been deleted!");
    }
