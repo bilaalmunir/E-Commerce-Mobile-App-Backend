@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.DTO.BilalChampuPayloadDTO;
 import com.ecommerce.mobileapp.entities.Comments;
 import com.ecommerce.mobileapp.entities.Product;
 import com.ecommerce.mobileapp.entities.User;
@@ -34,8 +35,8 @@ public class rest {
 
     @PostMapping("/registerUser")
     public User registerUser(@RequestParam String username, @RequestParam String firstname, @RequestParam String lastname,
-            @RequestParam String email, @RequestParam String password) {
-        return us.registerUser(username, firstname, lastname, email, password);
+            @RequestParam String email, @RequestParam String password, @RequestParam byte[] profilePicture) {
+        return us.registerUser(username, firstname, lastname, email, password, profilePicture);
     }
     @PostMapping("/loginUser")
     public User loginUser(@RequestParam String username,@RequestParam String password){
@@ -78,7 +79,7 @@ public class rest {
     }
 
     @PostMapping("/setWishlistItem")
-    public ResponseEntity<?> setWishlist(int userId, int productId){
+    public BilalChampuPayloadDTO setWishlist(int userId, int productId){
         return ps.setWishlistItem(userId, productId);
     }
 

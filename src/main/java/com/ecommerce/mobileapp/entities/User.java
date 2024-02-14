@@ -3,10 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -22,6 +24,10 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    @Lob
+    @Column(name = "profile_picture", columnDefinition="BLOB")
+    private String profilePicture;
+
     private long balance = 64738264;
     @OneToMany
     private List<Product> ownedCars=new ArrayList<>();
@@ -30,6 +36,9 @@ public class User {
     @OneToOne
     private Wishlist wishlist;
     
+
+
+
     public List<Product> getCarsAdded() {
         return carsAdded;
     }
@@ -93,6 +102,14 @@ public class User {
     public void setBalance(long balance) {
         this.balance = balance;
     }
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+    
+       
     
     
    }

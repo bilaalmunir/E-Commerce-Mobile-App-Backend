@@ -1,27 +1,23 @@
 package com.ecommerce.mobileapp.service;
 
-import java.util.Optional;
-import java.util.stream.Collectors;
 import com.ecommerce.mobileapp.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.ecommerce.mobileapp.repository.Userrepository;
 
-import jakarta.validation.constraints.Null;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.util.Base64;
 
 @Service
 public class UserServices {
     @Autowired
     private Userrepository userRepo;
 
-        public User registerUser(String userName, String firstname, String lastname, String email, String password){
+        public User registerUser(String userName, String firstname, String lastname, String email, String password, byte[] profilePicture){
             User user = new User();
          if (userRepo.findByUsername(userName)!=null) {
             return new User();
@@ -31,6 +27,9 @@ public class UserServices {
         user.setLastName(lastname);
         user.setEmail(email);
         user.setPassword(encryptThisString(password));
+        String base64EncodedProfilePicture = Base64.getEncoder().encodeToString(profilePicture);
+    user.setProfilePicture(base64EncodedProfilePicture);
+        
         // user.setPassword(password);
         return userRepo.save(user);
         }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.DTO.BilalChampuPayloadDTO;
 import com.ecommerce.mobileapp.entities.Comments;
 import com.ecommerce.mobileapp.entities.Product;
 import com.ecommerce.mobileapp.entities.User;
@@ -104,7 +105,7 @@ public class ProductServices {
       return proRepo.findAll();
    }
 
-   public ResponseEntity<?> setWishlistItem(int userId, int productId) {
+   public BilalChampuPayloadDTO setWishlistItem(int userId, int productId) {
       User user = userRepo.findById( userId).orElseThrow(() -> new IllegalArgumentException("no user found!"));
       Product product = proRepo.findById(productId)
             .orElseThrow(() -> new IllegalArgumentException("no product found!"));
@@ -119,9 +120,9 @@ public class ProductServices {
          wishlist.getProduct().add(product);
          wishlistRepo.save(wishlist);
          userRepo.save(user);
-         return ResponseEntity.ok("added to watchlist!");
+         return new BilalChampuPayloadDTO("addedWatchlist!");
       } else {
-         return (ResponseEntity<?>) ResponseEntity.badRequest();
+         return new BilalChampuPayloadDTO("naihuaHAhahaskhahah");
       }
    }
 
