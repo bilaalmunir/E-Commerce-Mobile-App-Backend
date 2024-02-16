@@ -79,12 +79,12 @@ public class rest {
     }
 
     @PostMapping("/setWishlistItem")
-    public BilalChampuPayloadDTO setWishlist(int userId, int productId){
+    public Product setWishlist(int userId, int productId){
         return ps.setWishlistItem(userId, productId);
     }
 
     @PutMapping("/removeWishlistItem")
-    public ResponseEntity<?> removeWishlistItem(int userId, int productId){
+    public ResponseEntity<String> removeWishlistItem(int userId, int productId){
         return ps.removeWishlistItem(userId, productId);
     }
 

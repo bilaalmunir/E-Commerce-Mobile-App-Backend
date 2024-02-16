@@ -98,14 +98,16 @@ public class ProductServices {
    }
 
    public List<Product> getAllSoldCars() {
-      return proRepo.findByStatus(true);
+      List<Product> pro = proRepo.findByStatus(true);
+      pro.toString();
+      return pro;
    }
 
    public List<Product> getAllCars() {
       return proRepo.findAll();
    }
 
-   public BilalChampuPayloadDTO setWishlistItem(int userId, int productId) {
+   public Product setWishlistItem(int userId, int productId) {
       User user = userRepo.findById( userId).orElseThrow(() -> new IllegalArgumentException("no user found!"));
       Product product = proRepo.findById(productId)
             .orElseThrow(() -> new IllegalArgumentException("no product found!"));
@@ -120,19 +122,21 @@ public class ProductServices {
          wishlist.getProduct().add(product);
          wishlistRepo.save(wishlist);
          userRepo.save(user);
-         return new BilalChampuPayloadDTO("addedWatchlist!");
+         System.out.println("wishlist added!");
+         return product;
       } else {
-         return new BilalChampuPayloadDTO("naihuaHAhahaskhahah");
+         return null;
       }
    }
 
-   public ResponseEntity<?> removeWishlistItem(int userId, int productId) {
+   public ResponseEntity<String> removeWishlistItem(int userId, int productId) {
       User user = userRepo.findById( userId).orElseThrow(() -> new IllegalArgumentException("no user found!"));
       Product product = proRepo.findById(productId)
             .orElseThrow(() -> new IllegalArgumentException("no product found!"));
       Wishlist wishlist = user.getWishlist();
       wishlist.getProduct().remove(product);
       wishlistRepo.save(wishlist);
+      System.out.println("deleted item from wishlist");
       return ResponseEntity.ok("removed from the list!");
    }
 
