@@ -164,6 +164,7 @@ public class ProductServices {
       product.setComments(comm);
       proRepo.save(product);
       System.out.println(product.toString());
+      System.out.println("o jee comment hogya jee");;
       return newCom;
 
    }
